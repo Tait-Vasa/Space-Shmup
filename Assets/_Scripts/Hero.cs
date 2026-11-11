@@ -84,7 +84,7 @@ public class Hero : MonoBehaviour
         if (enemy != null)
         {  // If the shield was triggered by an enemy
             shieldLevel--;        // Decrease the level of the shield by 1
-            Destroy(go);          // … and Destroy the enemy       
+            Destroy(go);          // and Destroy the enemy       
         }
         else
         {

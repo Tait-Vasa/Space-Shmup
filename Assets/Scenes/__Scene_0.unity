@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main
   prefabEnemies:
-  - {fileID: 5089020521809054268, guid: 0c31347a8c7144e4e9e38cebe3d1e84f, type: 3}
+  - {fileID: 4070209521177695457, guid: 10ae278da906f451594d7989d76b6d15, type: 3}
   enemySpawnPerSecond: 0.5
   enemyInsetDefault: 1.5
   gameRestartDelay: 2
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoundsCheck
   boundsType: 1
   radius: 4
-  keepOnScreen: 0
+  keepOnScreen: 1
   screenLocs: 0
   camWidth: 0
   camHeight: 0
@@ -731,7 +731,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

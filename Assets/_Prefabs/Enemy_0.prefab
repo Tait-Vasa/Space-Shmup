@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1050004328776599073}
   - component: {fileID: 996540115233196952}
   - component: {fileID: 7494580211465085137}
-  - component: {fileID: -6509077049670093652}
   - component: {fileID: 771989384187688905}
+  - component: {fileID: 51481581331796589}
   m_Layer: 9
   m_Name: Enemy_0
   m_TagString: Untagged
@@ -86,22 +86,6 @@ CapsuleCollider:
   m_Height: 2.9
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6509077049670093652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5089020521809054268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7920f4ee4ca15dd4eb33eb466e6a92dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 10
-  fireRate: 0.3
-  health: 10
-  score: 100
 --- !u!114 &771989384187688905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +104,22 @@ MonoBehaviour:
   screenLocs: 0
   camWidth: 0
   camHeight: 0
+--- !u!114 &51481581331796589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5089020521809054268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318e2ef14b5156d46a8e0947b17eda04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_0
+  speed: 10
+  fireRate: 0.3
+  health: 10
+  score: 100
 --- !u!1001 &3835821474526560723
 PrefabInstance:
   m_ObjectHideFlags: 0

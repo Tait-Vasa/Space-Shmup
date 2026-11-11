@@ -14,8 +14,11 @@ public class Main : MonoBehaviour
     public float enemySpawnPerSecond = 0.5f;  // # Enemies spawned/second
     public float enemyInsetDefault = 1.5f;    // Inset from the sides
     public float gameRestartDelay = 2; // For game reset
-    public WeaponDefinition[] weaponDefinitions; // Array of WeaponDefinitions
-
+    public GameObject prefabPowerUp;
+    public WeaponDefinition[] weaponDefinitions;
+    public eWeaponType[] powerUpFrequency = new eWeaponType[] {
+                                     eWeaponType.blaster, eWeaponType.blaster,
+                                     eWeaponType.spread,  eWeaponType.shield };
     private BoundsCheck bndCheck;
 
     void Awake()
@@ -90,7 +93,7 @@ public class Main : MonoBehaviour
     static public WeaponDefinition GET_WEAPON_DEFINITION(eWeaponType wt)
     {
         if (WEAP_DICT.ContainsKey(wt))
-        { 
+        {
             return (WEAP_DICT[wt]);
         }
         // If no entry of the correct type exists in WEAP_DICT, return a new 
@@ -98,4 +101,28 @@ public class Main : MonoBehaviour
         return (new WeaponDefinition());
     }
 
+    /// <summary>
+    /// Called by an Enemy ship whenever it is destroyed. It sometimes creates
+    ///   a PowerUp in place of the destroyed ship.
+    /// </summary>
+    /// <param name="e">The Enemy that was destroyed</param>
+    static public void SHIP_DESTROYED(Enemy e)
+    {
+        // Potentially generate a PowerUp
+        if (Random.value <= e.powerUpDropChance)
+        { // Underlined red for now
+          // Choose a PowerUp from the possibilities in powerUpFrequency
+            int ndx = Random.Range(0, S.powerUpFrequency.Length);
+            eWeaponType pUpType = S.powerUpFrequency[ndx];
+
+            // Spawn a PowerUp
+            GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
+            PowerUp pUp = go.GetComponent<PowerUp>();
+            // Set it to the proper WeaponType
+            pUp.SetType(pUpType);
+
+            // Set it to the position of the destroyed ship
+            pUp.transform.position = e.transform.position;
+        }
+    }
 }

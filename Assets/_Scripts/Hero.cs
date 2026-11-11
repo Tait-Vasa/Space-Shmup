@@ -16,6 +16,7 @@ public class Hero : MonoBehaviour
 
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
+    public Weapon[] weapons;
 
     [Header("Dynamic")]
     [Range(0, 4)]
@@ -40,6 +41,9 @@ public class Hero : MonoBehaviour
         {
             Debug.LogError("Hero.Awake() - Attempted to assign second Hero.S!");
         }
+
+        ClearWeapons();
+        weapons[0].SetType(eWeaponType.blaster);
     }
 
     void Start()
@@ -78,15 +82,50 @@ public class Hero : MonoBehaviour
         lastTriggerGo = go;
 
         Enemy enemy = go.GetComponent<Enemy>();
+        PowerUp pUp = go.GetComponent<PowerUp>();
         if (enemy != null)
         {  // If the shield was triggered by an enemy
             shieldLevel--;        // Decrease the level of the shield by 1
             Destroy(go);          // and Destroy the enemy       
         }
+        else if (pUp != null)
+        {  // If the shield was triggered by a PowerUp
+            // If the shield was triggered by a PowerUp
+            AbsorbPowerUp(pUp);
+        }
         else
         {
             Debug.LogWarning("Shield trigger hit by non-Enemy: " + go.name);
         }
+    }
+
+    public void AbsorbPowerUp(PowerUp pUp)
+    {
+        Debug.Log("Absorbing PowerUp: " + pUp.type);
+        switch (pUp.type)
+        {
+            case eWeaponType.shield:  
+                shieldLevel++;
+                break;
+
+            default:
+                if (pUp.type == weapons[0].type)
+                { // If it is the same type 
+                    Weapon weap = GetEmptyWeaponSlot();
+                    if (weap != null)
+                    {
+                        // Set it to pUp.type
+                        weap.SetType(pUp.type);
+                    }
+                }
+                else
+                { // If this is a different weapon type 
+                    ClearWeapons();
+                    weapons[0].SetType(pUp.type);
+                }
+                break;
+        }
+        pUp.AbsorbedBy(this.gameObject);
     }
 
     public float shieldLevel
@@ -101,6 +140,33 @@ public class Hero : MonoBehaviour
                 Destroy(this.gameObject);  // Destroy the Hero
                 Main.HERO_DIED();
             }
+        }
+    }
+
+    /// <summary>
+    /// Finds the first empty Weapon slot (i.e., type=none) and returns it.
+    /// </summary>
+    /// <returns>The first empty Weapon slot or null if none are empty</returns>
+    Weapon GetEmptyWeaponSlot()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i].type == eWeaponType.none)
+            {
+                return (weapons[i]);
+            }
+        }
+        return (null);
+    }
+
+    /// <summary>
+    /// Sets the type of all Weapon slots to none
+    /// </summary>
+    void ClearWeapons()
+    {
+        foreach (Weapon w in weapons)
+        {
+            w.SetType(eWeaponType.none);
         }
     }
 

@@ -13,7 +13,7 @@ public class Hero : MonoBehaviour
     public float speed = 30;
     public float rollMult = -45;
     public float pitchMult = 30;
-    
+
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
 
@@ -22,6 +22,10 @@ public class Hero : MonoBehaviour
     private float _shieldLevel = 1;
     [Tooltip("This field holds a reference to the last triggering GameObject")]
     private GameObject lastTriggerGo = null;
+    // Declare a new delegate type WeaponFireDelegate
+    public delegate void WeaponFireDelegate();
+    // Create a WeaponFireDelegate event named fireEvent.
+    public event WeaponFireDelegate fireEvent;
 
     InputAction moveAction;
     InputAction shootAction;
@@ -58,19 +62,11 @@ public class Hero : MonoBehaviour
         // Rotate the ship to make it feel more dynamic
         transform.rotation = Quaternion.Euler(moveInput.y * pitchMult, moveInput.x * rollMult, 0);
 
-        if (shootAction.WasPressedThisFrame())
+        if (shootAction.IsPressed() && fireEvent != null)
         {
-            TempFire();
+            fireEvent();
         }
 
-    }
-
-    void TempFire()
-    {
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = transform.position;
-        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
-        rigidB.linearVelocity = Vector3.up * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider other)

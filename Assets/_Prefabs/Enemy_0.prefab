@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7494580211465085137}
   - component: {fileID: 771989384187688905}
   - component: {fileID: 51481581331796589}
+  - component: {fileID: 3399582268832166222}
   m_Layer: 9
   m_Name: Enemy_0
   m_TagString: Untagged
@@ -120,6 +121,20 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
+--- !u!114 &3399582268832166222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5089020521809054268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7783fb3b95da9d45b2f92b8b75a1fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlinkColorOnHit
+  showingColor: 0
+  blinkCompleteTime: 0
 --- !u!1001 &3835821474526560723
 PrefabInstance:
   m_ObjectHideFlags: 0
